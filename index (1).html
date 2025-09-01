@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeje Adeola Emmanuel | Digital Marketing Specialist</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== GLOBAL STYLES ===== */
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4cc9f0;
+            --text-color: #333;
+            --light-text: #f8f9fa;
+            --bg-color: #ffffff;
+            --light-bg: #f8f9fa;
+            --dark-bg: #212529;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --border-radius: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            text-align: center;
+            position: relative;
+            opacity: 0;
+            /* For GSAP animation */
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            border: none;
+            font-size: 0.9rem;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            width: 100%;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--light-text);
+            border: 2px solid var(--light-text);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--light-text);
+            color: var(--primary-color);
+        }
+
+        .btn-service {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            width: 100%;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* ===== HAMBURGER MENU ===== */
+        .hamburger-menu {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            z-index: 1000;
+            cursor: pointer;
+        }
+
+        .hamburger {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            padding: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .hamburger span {
+            width: 100%;
+            height: 2px;
+            background-color: var(--light-text);
+            transition: var(--transition);
+            transform-origin: left;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg);
+        }
+
+        /* ===== NAVIGATION OVERLAY ===== */
+        .nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(67, 97, 238, 0.95);
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .nav-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .nav-overlay nav {
+            text-align: center;
+        }
+
+        .nav-overlay ul {
+            padding: 0;
+        }
+
+        .nav-overlay li {
+            margin: 20px 0;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .nav-overlay li a {
+            font-size: 2rem;
+            color: var(--light-text);
+            font-weight: 600;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-overlay li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--light-text);
+            transition: var(--transition);
+        }
+
+        .nav-overlay li a:hover::after {
+            width: 100%;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80') no-repeat center center/cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--light-text);
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0;
+            /* For GSAP animation */
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            font-weight: 400;
+            opacity: 0;
+            /* For GSAP animation */
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            opacity: 0;
+            /* For GSAP animation */
+        }
+
+        /* ===== ABOUT SECTION ===== */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+            opacity: 0;
+            /* For GSAP animation */
+        }
+
+        .image-container {
+            position: relative;
+            padding-bottom: 125%;
+            /* 4:5 aspect ratio */
+            overflow: hidden;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        .profile-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80') no-repeat center center/cover;
+        }
+
+        .about-text {
+            opacity: 0;
+            /* For GSAP animation */
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+        }
+
+        /* ===== CERTIFICATIONS SECTION ===== */
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .cert-card {
+            background-color: var(--light-bg);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+            opacity: 0;
+            /* For GSAP animation */
+            transform: translateY(30px);
+            /* For GSAP animation */
+        }
+
+        .cert-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .cert-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .cert-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        /* ===== SKILLS SECTION ===== */
+        .skills-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .skills-column {
+            opacity: 0;
+            /* For GSAP animation */
+        }
+
+        .skills-column h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .skills-list li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            background-color: var(--light-bg);
+            padding: 15px;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .skills-list li:hover {
+            transform: translateX(10px);
+            background-color: var(--primary-color);
+            color: var(--light-text);
+        }
+
+        .skills-list li i {
+            margin-right: 15px;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .skills-list li:hover i {
+            color: var(--light-text);
+        }
+
+        /* ===== SERVICES SECTION ===== */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background-color: var(--light-bg);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            opacity: 0;
+            /* For GSAP animation */
+            transform: translateY(30px);
+            /* For GSAP animation */
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .service-header {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .service-header h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .price span {
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        .service-content {
+            padding: 30px;
+        }
+
+        .service-content ul {
+            margin-bottom: 20px;
+        }
+
+        .service-content li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .service-content li i {
+            color: var(--primary-color);
+            margin-right: 10px;
+        }
+
+        /* ===== CONTACT SECTION ===== */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .contact-form {
+            opacity: 0;
+            /* For GSAP animation */
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            transition: var(--transition);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2);
+            outline: none;
+        }
+
+        .form-group input:focus+label,
+        .form-group textarea:focus+label,
+        .form-group input:not(:placeholder-shown)+label,
+        .form-group textarea:not(:placeholder-shown)+label {
+            top: -10px;
+            left: 15px;
+            font-size: 0.8rem;
+            background-color: var(--bg-color);
+            padding: 0 5px;
+        }
+
+        .form-group label {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            color: #777;
+            pointer-events: none;
+            transition: var(--transition);
+        }
+
+        .contact-info {
+            opacity: 0;
+            /* For GSAP animation */
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .contact-item i {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-right: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .social-link {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            border-radius: 50%;
+            transition: var(--transition), transform 0.2s;
+        }
+
+        .social-link:hover {
+            transform: scale(1.15) rotate(-10deg);
+            background-color: var(--secondary-color);
+        }
+
+        .btn-whatsapp {
+            background-color: #25D366;
+            color: var(--light-text);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-whatsapp i {
+            font-size: 1.2rem;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+            padding: 30px 0;
+            text-align: center;
+        }
+
+        /* ===== RESPONSIVE STYLES ===== */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 3.5rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .about-image {
+                max-width: 400px;
+                margin: 0 auto 30px;
+            }
+
+            .skills-container {
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: 70px 0;
+            }
+
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .skills-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .contact-info {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .hamburger-menu {
+                top: 20px;
+                right: 20px;
+            }
+        }
+
+        /* DEBUG: Force all elements to be visible for troubleshooting */
+        .section-title,
+        .about-image,
+        .about-text,
+        .cert-card,
+        .skills-column,
+        .service-card,
+        .contact-form,
+        .contact-info,
+        .hero-title,
+        .hero-subtitle,
+        .cta-buttons,
+        .skills-list li {
+            opacity: 1 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Hamburger Menu -->
+    <div class="hamburger-menu">
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+    <!-- Navigation Overlay -->
+    <div class="nav-overlay">
+        <nav>
+            <ul>
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#certifications" class="nav-link">Certifications</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Jeje Adeola Emmanuel</h1>
+            <h2 class="hero-subtitle">Digital Marketing Specialist – Lagos, Nigeria</h2>
+            <div class="cta-buttons">
+                <a href="#contact" class="btn btn-primary">Hire Me</a>
+                <a href="#services" class="btn btn-secondary">View Services</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-image">
+                    <div class="image-container">
+                        <!-- Placeholder for profile image -->
+                        <div class="profile-image"></div>
+                    </div>
+                </div>
+                <div class="about-text">
+                    <p>Hello! I'm Jeje Adeola Emmanuel, a passionate Digital Marketing Specialist based in Lagos,
+                        Nigeria. With expertise in social media marketing, particularly Facebook marketing, I help
+                        businesses grow their online presence and reach their target audience effectively.</p>
+                    <p>My approach combines data-driven strategies with creative content to deliver measurable results.
+                        I believe in building strong relationships with clients and understanding their unique needs to
+                        create customized marketing solutions.</p>
+                    <p>When I'm not crafting marketing campaigns, you can find me exploring new digital trends,
+                        attending industry workshops, or mentoring aspiring marketers.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certifications" class="section">
+        <div class="container">
+            <h2 class="section-title">Certifications</h2>
+            <div class="cert-grid">
+                <div class="cert-card">
+                    <div class="cert-icon"><i class="fab fa-facebook"></i></div>
+                    <h3>Facebook Blueprint Certification</h3>
+                    <p>Advanced proficiency in Facebook advertising platform</p>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3>Google Analytics Certification</h3>
+                    <p>Expert in data analysis and performance tracking</p>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-icon"><i class="fas fa-ad"></i></div>
+                    <h3>Google Ads Certification</h3>
+                    <p>Specialized in PPC campaigns and optimization</p>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-icon"><i class="fas fa-bullhorn"></i></div>
+                    <h3>HubSpot Inbound Marketing</h3>
+                    <p>Certified in inbound marketing methodology</p>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-icon"><i class="fas fa-mail-bulk"></i></div>
+                    <h3>Mailchimp Email Marketing</h3>
+                    <p>Expert in email campaign creation and automation</p>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-icon"><i class="fas fa-search"></i></div>
+                    <h3>SEO Certification</h3>
+                    <p>Specialized in search engine optimization techniques</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+        <div class="container">
+            <h2 class="section-title">Skills</h2>
+            <div class="skills-container">
+                <div class="skills-column">
+                    <h3>Technical Skills</h3>
+                    <ul class="skills-list">
+                        <li><i class="fab fa-facebook"></i> Facebook Ads Manager</li>
+                        <li><i class="fas fa-chart-bar"></i> Data Analysis</li>
+                        <li><i class="fas fa-search"></i> SEO & SEM</li>
+                        <li><i class="fas fa-code"></i> HTML & CSS Basics</li>
+                        <li><i class="fas fa-camera"></i> Content Creation</li>
+                        <li><i class="fas fa-chart-line"></i> Google Analytics</li>
+                        <li><i class="fas fa-mail-bulk"></i> Email Marketing</li>
+                    </ul>
+                </div>
+                <div class="skills-column">
+                    <h3>Soft Skills</h3>
+                    <ul class="skills-list">
+                        <li><i class="fas fa-comments"></i> Communication</li>
+                        <li><i class="fas fa-users"></i> Team Collaboration</li>
+                        <li><i class="fas fa-lightbulb"></i> Creative Problem Solving</li>
+                        <li><i class="fas fa-tasks"></i> Project Management</li>
+                        <li><i class="fas fa-clock"></i> Time Management</li>
+                        <li><i class="fas fa-handshake"></i> Client Relations</li>
+                        <li><i class="fas fa-chart-pie"></i> Strategic Planning</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section">
+        <div class="container">
+            <h2 class="section-title">Facebook Marketing Packages</h2>
+            <div class="services-grid">
+                <div class="service-card basic">
+                    <div class="service-header">
+                        <h3>Basic</h3>
+                        <div class="price">₦50,000<span>/month</span></div>
+                    </div>
+                    <div class="service-content">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Facebook Page Setup & Optimization</li>
+                            <li><i class="fas fa-check"></i> 8 Posts Per Month</li>
+                            <li><i class="fas fa-check"></i> Basic Audience Targeting</li>
+                            <li><i class="fas fa-check"></i> 1 Facebook Ad Campaign</li>
+                            <li><i class="fas fa-check"></i> Monthly Performance Report</li>
+                        </ul>
+                        <a href="#contact" class="btn btn-service">Get Started</a>
+                    </div>
+                </div>
+                <div class="service-card standard">
+                    <div class="service-header">
+                        <h3>Standard</h3>
+                        <div class="price">₦100,000<span>/month</span></div>
+                    </div>
+                    <div class="service-content">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Everything in Basic</li>
+                            <li><i class="fas fa-check"></i> 15 Posts Per Month</li>
+                            <li><i class="fas fa-check"></i> Advanced Audience Targeting</li>
+                            <li><i class="fas fa-check"></i> 2 Facebook Ad Campaigns</li>
+                            <li><i class="fas fa-check"></i> Competitor Analysis</li>
+                            <li><i class="fas fa-check"></i> Bi-weekly Performance Reports</li>
+                            <li><i class="fas fa-check"></i> Community Management</li>
+                        </ul>
+                        <a href="#contact" class="btn btn-service">Get Started</a>
+                    </div>
+                </div>
+                <div class="service-card premium">
+                    <div class="service-header">
+                        <h3>Premium</h3>
+                        <div class="price">₦200,000<span>/month</span></div>
+                    </div>
+                    <div class="service-content">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Everything in Standard</li>
+                            <li><i class="fas fa-check"></i> 30 Posts Per Month</li>
+                            <li><i class="fas fa-check"></i> Custom Audience Creation</li>
+                            <li><i class="fas fa-check"></i> 4 Facebook Ad Campaigns</li>
+                            <li><i class="fas fa-check"></i> A/B Testing</li>
+                            <li><i class="fas fa-check"></i> Weekly Performance Reports</li>
+                            <li><i class="fas fa-check"></i> 24/7 Community Management</li>
+                            <li><i class="fas fa-check"></i> Content Calendar</li>
+                            <li><i class="fas fa-check"></i> Strategy Consultation</li>
+                        </ul>
+                        <a href="#contact" class="btn btn-service">Get Started</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title">Contact Me</h2>
+            <div class="contact-container">
+                <form class="contact-form">
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" placeholder="Your Name" required>
+                        <label for="name">Your Name</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" placeholder="Your Email" required>
+                        <label for="email">Your Email</label>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+                        <label for="message">Your Message</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <p>jejeadeola@example.com</p>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <p>+234 810 111 6817</p>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <p>Lagos, Nigeria</p>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    </div>
+                    <a href="https://wa.me/2348101116817" class="btn btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Jeje Adeola Emmanuel. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- GSAP and ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"
+        onerror="console.error('GSAP failed to load!')"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"
+        onerror="console.error('ScrollTrigger failed to load!')"></script>
+
+    <script>
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize GSAP and ScrollTrigger
+            gsap.registerPlugin(ScrollTrigger);
+
+            // ===== HAMBURGER MENU FUNCTIONALITY =====
+            const hamburger = document.querySelector('.hamburger');
+            const navOverlay = document.querySelector('.nav-overlay');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            // Toggle hamburger menu
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navOverlay.classList.toggle('active');
+
+                // Animate menu items when opened
+                if (navOverlay.classList.contains('active')) {
+                    gsap.to('.nav-overlay li', {
+                        opacity: 1,
+                        y: 0,
+                        stagger: 0.1,
+                        duration: 0.6,
+                        ease: 'power2.out'
+                    });
+                } else {
+                    gsap.to('.nav-overlay li', {
+                        opacity: 0,
+                        y: 20,
+                        duration: 0.3
+                    });
+                }
+            });
+
+            // Close menu when clicking on a link
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    navOverlay.classList.remove('active');
+
+                    gsap.to('.nav-overlay li', {
+                        opacity: 0,
+                        y: 20,
+                        duration: 0.3
+                    });
+                });
+            });
+
+            // ===== HERO SECTION ANIMATIONS =====
+            // Hero text animations
+            const heroTimeline = gsap.timeline();
+
+            heroTimeline
+                .from('.hero-title', {
+                    y: 50,
+                    opacity: 0,
+                    duration: 1,
+                    ease: 'power3.out'
+                })
+                .from('.hero-subtitle', {
+                    y: 30,
+                    opacity: 0,
+                    duration: 1,
+                    ease: 'power3.out'
+                }, '-=0.5')
+                .from('.cta-buttons', {
+                    y: 30,
+                    opacity: 0,
+                    duration: 1,
+                    ease: 'power3.out'
+                }, '-=0.5');
+
+            // Parallax effect on hero background
+            const heroSection = document.querySelector('.hero');
+
+            document.addEventListener('mousemove', (e) => {
+                const x = e.clientX / window.innerWidth;
+                const y = e.clientY / window.innerHeight;
+
+                gsap.to(heroSection, {
+                    backgroundPosition: `${50 + x * 10}% ${50 + y * 10}%`,
+                    duration: 1,
+                    ease: 'power1.out'
+                });
+            });
+
+            // ===== SECTION TITLE ANIMATIONS =====
+            // Animate all section titles when scrolled into view
+            gsap.utils.toArray('.section-title').forEach(title => {
+                gsap.from(title, {
+                    scrollTrigger: {
+                        trigger: title,
+                        start: 'top 80%',
+                        toggleActions: 'play none none none'
+                    },
+                    opacity: 0,
+                    y: 30,
+                    duration: 0.8,
+                    ease: 'power2.out'
+                });
+            });
+
+            // ===== ABOUT SECTION ANIMATIONS =====
+            gsap.from('.about-image', {
+                scrollTrigger: {
+                    trigger: '.about-content',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                },
+                opacity: 0,
+                x: -50,
+                duration: 1,
+                ease: 'power2.out'
+            });
+
+            gsap.from('.about-text', {
+                scrollTrigger: {
+                    trigger: '.about-content',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                },
+                opacity: 0,
+                x: 50,
+                duration: 1,
+                ease: 'power2.out',
+                delay: 0.3
+            });
+
+            // ===== CERTIFICATIONS SECTION ANIMATIONS =====
+            // Staggered animation for certification cards
+            gsap.from('.cert-card', {
+                scrollTrigger: {
+                    trigger: '.cert-grid',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                },
+                opacity: 0,
+                y: 30,
+                duration: 0.8,
+                stagger: 0.15,
+                ease: 'power2.out'
+            });
+
+            // ===== SKILLS SECTION ANIMATIONS =====
+            // Animate skills columns
+            gsap.from('.skills-column:first-child', {
+                scrollTrigger: {
+                    trigger: '.skills-container',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                },
+                opacity: 0,
+                x: -50,
+                duration: 0.8,
+                ease: 'power2.out'
+            });
+
+            gsap.from('.skills-column:last-child', {
+                scrollTrigger: {
+                    trigger: '.skills-container',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                },
+                opacity: 0,
+                x: 50,
+                duration: 0.8,
+                ease: 'power2.out'
+            });
+
+            // Animate skills list items
+            gsap.utils.toArray('.skills-list').forEach(list => {
+                gsap.from(list.children, {
+                    scrollTrigger: {
+                        trigger: list,
+                        start: 'top 80%',
+                        toggleActions: 'play none none none'
+                    },
+                    opacity: 0,
+                    y: 20,
+                    duration: 0.5,
+                    stagger: 0.1,
+                    ease: 'power2.out',
+                    delay: 0.4
+                });
+            });
+
+            // ===== SERVICES SECTION ANIMATIONS =====
+            // Staggered animation for service cards
+            gsap.from('.service-card', {
+                scrollTrigger: {
+                    trigger: '.services-grid',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                },
+                opacity: 0,
+                y: 50,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: 'power2.out'
+            });
+
+            // ===== CONTACT SECTION ANIMATIONS =====
+            gsap.from('.contact-form', {
+                scrollTrigger: {
+                    trigger: '.contact-container',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                },
+                opacity: 0,
+                x: -50,
+                duration: 0.8,
+                ease: 'power2.out'
+            });
+
+            gsap.from('.contact-info', {
+                scrollTrigger: {
+                    trigger: '.contact-container',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                },
+                opacity: 0,
+                x: 50,
+                duration: 0.8,
+                ease: 'power2.out'
+            });
+
+            // ===== FORM FUNCTIONALITY =====
+            const contactForm = document.querySelector('.contact-form');
+
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                // Here you would normally handle form submission
+                // For demo purposes, we'll just show an alert
+                alert('Thank you for your message! This is a demo form.');
+                contactForm.reset();
+            });
+
+            // ===== BUTTON HOVER ANIMATIONS =====
+            // Add hover animations to buttons
+            const buttons = document.querySelectorAll('.btn');
+
+            buttons.forEach(btn => {
+                btn.addEventListener('mouseenter', () => {
+                    gsap.to(btn, {
+                        scale: 1.05,
+                        duration: 0.3,
+                        ease: 'power1.out'
+                    });
+                });
+
+                btn.addEventListener('mouseleave', () => {
+                    gsap.to(btn, {
+                        scale: 1,
+                        duration: 0.3,
+                        ease: 'power1.out'
+                    });
+                });
+            });
+
+            // ===== CERTIFICATE CARD HOVER ANIMATIONS =====
+            // Enhanced hover animations for certificate cards
+            const certCards = document.querySelectorAll('.cert-card');
+
+            certCards.forEach(card => {
+                const icon = card.querySelector('.cert-icon i');
+
+                card.addEventListener('mouseenter', () => {
+                    gsap.to(icon, {
+                        rotate: 360,
+                        scale: 1.2,
+                        duration: 0.5,
+                        ease: 'power1.out'
+                    });
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    gsap.to(icon, {
+                        rotate: 0,
+                        scale: 1,
+                        duration: 0.5,
+                        ease: 'power1.out'
+                    });
+                });
+            });
+
+            // ===== SERVICE CARD HOVER ANIMATIONS =====
+            // Enhanced hover animations for service cards
+            const serviceCards = document.querySelectorAll('.service-card');
+
+            serviceCards.forEach(card => {
+                const header = card.querySelector('.service-header');
+
+                card.addEventListener('mouseenter', () => {
+                    gsap.to(header, {
+                        backgroundColor: '#3f37c9',
+                        duration: 0.3,
+                        ease: 'power1.out'
+                    });
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    gsap.to(header, {
+                        backgroundColor: '#4361ee',
+                        duration: 0.3,
+                        ease: 'power1.out'
+                    });
+                });
+            });
+
+            // ===== SMOOTH SCROLLING =====
+            // Smooth scroll to section when clicking on navigation links
+            document.querySelectorAll('.nav-link').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const targetId = this.getAttribute('href');
+                    // Only prevent default if the target exists and is not just "#"
+                    if (targetId.length > 1 && document.querySelector(targetId)) {
+                        e.preventDefault();
+                        const targetElement = document.querySelector(targetId);
+                        window.scrollTo({
+                            top: targetElement.offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
